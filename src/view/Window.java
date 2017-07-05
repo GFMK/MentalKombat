@@ -2,6 +2,7 @@ package view;
 
 
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -13,7 +14,7 @@ public class Window extends JFrame{
 
 	private DetectKey detKey = new DetectKey();
 	private WinPanel wp;
-	//private JButton jb = new JButton("yolo");
+		
 	public Window() {
 		wp = new WinPanel();
 	    this.setTitle("MentalKombat");
@@ -21,7 +22,7 @@ public class Window extends JFrame{
 	    this.setResizable(false);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	    this.setVisible(true);
+	   // this.setVisible(true);
 	    this.addKeyListener(detKey);
 	    this.setFocusable(true);
 	    this.add(wp);

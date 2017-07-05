@@ -22,6 +22,8 @@ public class GameLoop {
 	private boolean p2hasDoneSpe = false;
 	
 	private int chooseEnd=0;
+	private boolean menuDisplayed=false;
+	private boolean authosLifeBar=true;
 	
 	public GameLoop() throws IOException {
 		this.loop();
@@ -35,6 +37,7 @@ public class GameLoop {
 					break;
 				}
 			}
+			
 			while(true){//GAMELOOP
 				this.sleepThree();
 				if(!this.game()){
@@ -52,20 +55,52 @@ public class GameLoop {
 	}
 	public boolean menu() throws IOException{
 		boolean continuer=true;
+		
 		win.getWP().setAuthos(true, true);
+		Menu men= new Menu(win);
+		if (!menuDisplayed){
+			
+			win.setContentPane(men);
+			men.addtitle();	
+			men.addButtons();
+			
+			menuDisplayed=true;
+			
+			win.setVisible(true);
+			men.repaint();
+		}
+		if(men.getCharChosen()!=0){
+			win.setContentPane(win.getWP());
+			//Until AI extreme coded
+				p2 = ai.characterChosen();
+				ai.setLevel(false);
+			//EndUntil
+				if(men.getCharChosen()==1){
+					p1 = new Damager(300,350);	
+				}
+				if(men.getCharChosen()==2){
+					p1 = new Tank(300,350);	
+				}
+				if(men.getCharChosen()==3){
+					p1 = new Healer(300,350);	
+				}
+			continuer=false;
+			menuDisplayed=false;
+			men.setCharChosen(0);
+			win.setVisible(true);
+			win.getWP().repaint();
+			authosLifeBar=true;
+		}
 		
-		Menu men = new Menu(win);
-		
-		p2 = ai.characterChosen();
-		ai.setLevel(false);
-		p1 = new Tank(300,350);
-		win.getWP().repaint();
 		return continuer;
 		
 	}
 	public boolean game(){
 		boolean continuer=true;
-		
+		if(authosLifeBar){
+			win.getWP().setAuthos(true, true);
+			authosLifeBar=false;
+		}
 		win.getWP().clearTable();
 		if (win.getDetKey().getKey() != previousKey && !(win.getDetKey().getKey()==69 && hasDoneSpe==true)){
 			if(win.getDetKey().getKey()==69){

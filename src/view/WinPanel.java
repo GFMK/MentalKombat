@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,8 +13,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.Menu;
 import model.Character;
 
 
@@ -40,10 +43,8 @@ public class WinPanel extends JPanel{
 		try {
 			Image img;
 			img = ImageIO.read(new File("images/background.jpg"));
-		//	g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			
+			g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 
-			
 			float thickness = 3;
 			g2d.setStroke(new BasicStroke(thickness));
 			
@@ -110,6 +111,7 @@ public class WinPanel extends JPanel{
 		autho=a1;
 		autho2=a2;
 	}
+
 	
 	
 	
