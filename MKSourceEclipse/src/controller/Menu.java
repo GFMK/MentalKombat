@@ -15,14 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import view.Window;
 
+@SuppressWarnings("serial")
 public class Menu extends JPanel{
 
 	static int charChosen=0;
-	private Window win;
-	public Menu(Window win) {
-		this.win=win;
+	static boolean extreme=false;
+	
+	public Menu() {
+		
 		
 	}
 	public void paintComponent(Graphics g)
@@ -31,11 +32,10 @@ public class Menu extends JPanel{
 		try {
 			img = ImageIO.read(new File("images/menu_img.png"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-			System.out.println("je suis appelé");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 	
 	public void addtitle(){
@@ -69,10 +69,12 @@ public class Menu extends JPanel{
 		boutonD.addActionListener(new boutonDListener());
 		boutonT.addActionListener(new boutonTListener());
 		boutonH.addActionListener(new boutonHListener());
-		extreme.addActionListener(new tickListener(extreme.isSelected()));
+		extreme.addActionListener(new tickListener());
 		
 	}
-
+	public boolean getExtreme(){
+		return extreme;
+	}
 	public int getCharChosen(){
 		return charChosen;
 	}
@@ -107,16 +109,16 @@ class boutonHListener implements ActionListener{
 }
 class tickListener implements ActionListener{
 	
-	private Boolean isticked;
-	
-	public tickListener(Boolean ticked){
-		isticked=ticked;
-	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
-			System.out.println("EXTREME MODE CHOSEN");
-		
+			System.out.println("EXTREME MODE TOGGLED");
+			if(Menu.extreme){
+				Menu.extreme=false;
+			}
+			else{
+				Menu.extreme=true;
+			}
+		System.out.println("MODE : " +Menu.extreme);
 	}
 	
 }

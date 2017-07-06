@@ -1,40 +1,28 @@
 package model;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Character {
+public class Character { // SuperClass of all the characters
 
 	protected int x;
 	protected int y;
 	protected int lifePoints;
 	protected Image img;
 	
-	public Character(int x, int y)
+	public Character() // x and y are the coordonates, they can change depending on the position on the img.
 	{
-		this.x = x;
-		this.y = y;
+	
 	}
 	
-
-	public void update()
-	{
-		
-	}
-	
-	public void draw(Graphics2D g2d)
-	{
-		
-	}
-	public Image getImage(){
+	public Image getImage(){ //return the img
 		return img;
 	}
 
-	public void setImage(String path){
+	public void setImage(String path){ //set a new img!
 		try {
 			img = ImageIO.read(new File(path));
 		} catch (IOException e) {
@@ -60,7 +48,7 @@ public class Character {
 	public void setY(int y) {
 		this.y = y;
 	}
-	public int attack(Character ch){
+	public int attack(Character ch){ //all methods that will change with the inheritance polymorphism
 		return 0;
 	}
 	public void bloc(){

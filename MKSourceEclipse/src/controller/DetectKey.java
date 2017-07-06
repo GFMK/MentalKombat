@@ -3,7 +3,7 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class DetectKey implements KeyListener {
+public class DetectKey implements KeyListener { //classic keylistening class
 	
 	private int key;
 	
@@ -13,7 +13,7 @@ public class DetectKey implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		key = arg0.getKeyCode();
+		key = arg0.getKeyCode(); //get the keycode in an int to interact with it.
 	}
 
 	@Override

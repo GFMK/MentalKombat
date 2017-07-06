@@ -2,31 +2,27 @@ package view;
 
 
 
-import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import controller.DetectKey;
 
 
 @SuppressWarnings("serial")
-public class Window extends JFrame{
+public class Window extends JFrame{ // creation of a new window
 
-	private DetectKey detKey = new DetectKey();
+	private DetectKey detKey = new DetectKey(); //creation of the keydetection
 	private WinPanel wp;
 		
 	public Window() {
-		wp = new WinPanel();
+		wp = new WinPanel(); //new panel
 	    this.setTitle("MentalKombat");
-	    this.setSize(1024, 618);
-	    this.setResizable(false);
+	    this.setSize(1024, 618); //the window size
+	    this.setResizable(false); //not resizable 
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	   // this.setVisible(true);
-	    this.addKeyListener(detKey);
+	    this.addKeyListener(detKey); // add the key listener
 	    this.setFocusable(true);
-	    this.add(wp);
-	   // wp.add(jb);
+	    this.add(wp); //add the panel
 	}
 	
 	public DetectKey getDetKey(){

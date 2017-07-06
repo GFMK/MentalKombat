@@ -11,25 +11,25 @@ import view.Window;
 
 public class GameLoop {
 
-	private Window win = new Window();
-	private AI ai = new AI();
+	private Window win = new Window(); // We create a new JFrame
+	private AI ai = new AI(); //We create a new AI Sytem.
 	
-	private Character p1;
+	private Character p1; // P1 is the Player, P2 will be controled by the AI
 	private Character p2;
 	
-	private int previousKey=1;
-	private boolean hasDoneSpe=false;
-	private boolean p2hasDoneSpe = false;
+	private int previousKey=1; //int to launche the method only once after a keystroke
+	private boolean hasDoneSpe=false; //see if p1 has done SpeAttack
+	private boolean p2hasDoneSpe = false;//see if p2 has done SpeAttack
 	
-	private int chooseEnd=0;
-	private boolean menuDisplayed=false;
-	private boolean authosLifeBar=true;
+	private int chooseEnd=0; //different end in fuction of this int
+	private boolean menuDisplayed=false; //See if menu is displayed
+	private boolean authosLifeBar=true; //boolean to update after a game the surroundings of the lifeBars
 	
 	public GameLoop() throws IOException {
 		this.loop();
 		
 	}
-	public void loop() throws IOException{
+	public void loop() throws IOException{ //Calling in loop the methods
 		while(true){//GENERAL
 			while(true){//MENU LOOP
 				this.sleepThree();
@@ -56,26 +56,25 @@ public class GameLoop {
 	public boolean menu() throws IOException{
 		boolean continuer=true;
 		
-		win.getWP().setAuthos(true, true);
-		Menu men= new Menu(win);
-		if (!menuDisplayed){
+		Menu men= new Menu(); //create a new menu panel
+		if (!menuDisplayed){//THE MENU IS DISPLAYED ONCE
 			
-			win.setContentPane(men);
-			men.addtitle();	
-			men.addButtons();
+			win.setContentPane(men); //set on the window the menu panel
+			men.addtitle();	 // add a title
+			men.addButtons(); // add buttons
 			
-			menuDisplayed=true;
+			menuDisplayed=true; 
 			
 			win.setVisible(true);
 			men.repaint();
 		}
-		if(men.getCharChosen()!=0){
+		if(men.getCharChosen()!=0){ //once the played has done his choice on the menu
 			win.setContentPane(win.getWP());
 			//Until AI extreme coded
-				p2 = ai.characterChosen();
-				ai.setLevel(false);
+				p2 = ai.characterChosen(); //P2 picks a random character
+				ai.setLevel(Menu.extreme); //set level of ai (extreme or not)
 			//EndUntil
-				if(men.getCharChosen()==1){
+				if(men.getCharChosen()==1){ //creates p1 depending on the button activated
 					p1 = new Damager(300,350);	
 				}
 				if(men.getCharChosen()==2){
@@ -84,9 +83,9 @@ public class GameLoop {
 				if(men.getCharChosen()==3){
 					p1 = new Healer(300,350);	
 				}
-			continuer=false;
-			menuDisplayed=false;
-			men.setCharChosen(0);
+			continuer=false;//breaks the menu loop
+			menuDisplayed=false;//menu isn't diplayed
+			men.setCharChosen(0);//reset the number of the char chosen to reload the menu after a game
 			win.setVisible(true);
 			win.getWP().repaint();
 			authosLifeBar=true;
@@ -95,50 +94,54 @@ public class GameLoop {
 		return continuer;
 		
 	}
-	public boolean game(){
+	public boolean game(){ //GAME LOOP
 		boolean continuer=true;
-		if(authosLifeBar){
+		if(authosLifeBar){ //done only one time, for the surrounding of life bar, initialize them
 			win.getWP().setAuthos(true, true);
 			authosLifeBar=false;
 		}
-		win.getWP().clearTable();
-		if (win.getDetKey().getKey() != previousKey && !(win.getDetKey().getKey()==69 && hasDoneSpe==true)){
+		win.getWP().clearTable(); //clears the content of a table that ahs the caracter to display
+		if (win.getDetKey().getKey() != previousKey && !(win.getDetKey().getKey()==69 && hasDoneSpe==true)){//detects a key, and prevent from activating 2 times the SpeAttack key
 			if(win.getDetKey().getKey()==69){
 				hasDoneSpe = true;
 			}
 			
-			Event combatEvent = new Event(win.getDetKey().getKey(), ai, win, p1, p2, p2hasDoneSpe);
-			combatEvent.showKey();
+			Event combatEvent = new Event(win.getDetKey().getKey(), ai, win, p1, p2, p2hasDoneSpe, hasDoneSpe); // creates an event 
+
 			if(!p2hasDoneSpe){
-				p2hasDoneSpe = combatEvent.getp2DidSpe();
+				p2hasDoneSpe = combatEvent.getp2DidSpe();//sees if p2 has done it's speAttack
 			}
 			previousKey = win.getDetKey().getKey(); 
 		}
 		
-		if(p1.getLifePoints()<=0 && p2.getLifePoints()<=0){
+		if(p1.getLifePoints()<=0 && p2.getLifePoints()<=0){ //choose end  TIE SITUATION
 			chooseEnd=1;
 			continuer = false;
 		}
-		else if(p1.getLifePoints()<=0){
+		else if(p1.getLifePoints()<=0){ //LOOSE SITUATION
 			chooseEnd=2;
 			continuer = false;
 		}
-		else if(p2.getLifePoints()<=0){
+		else if(p2.getLifePoints()<=0){ //WIN SITUATION
 			chooseEnd=3;
 			continuer = false;
 		}
 		win.getWP().add(p1);
-		win.getWP().add(p2);
+		win.getWP().add(p2); //we add p1 and p2 to be displayed
 		win.getWP().repaint();
+		
+		if(p1.getLifePoints()<=0 || p2.getLifePoints()<=0) //sleep to see the dead sprites :'D
+			this.sleepTwo();
 		return continuer;
 		
 	}
+	@SuppressWarnings("unused")
 	public boolean end() throws IOException{
 		boolean continuer=true;
 		
-			win.getWP().setEnd(chooseEnd);
+			win.getWP().setEnd(chooseEnd);//display the coorect ending image
 			win.getWP().repaint();
-			if(win.getDetKey().getKey()==32){
+			if(win.getDetKey().getKey()==32){ //IF spacebar is hit it reinitialize all objects/attributes
 				win.getWP().setEnd(0);
 				chooseEnd=0;
 				ai = new AI();
@@ -147,13 +150,14 @@ public class GameLoop {
 				previousKey=1;
 				hasDoneSpe=false;
 				p2hasDoneSpe = false;
+				Menu.extreme=false;
 				continuer=false;
 			}
 			
 		return continuer;
 	}
 	
-	public void sleepThree(){
+	public void sleepThree(){ //little wait, to prevent the CPU from exploding
 		try {
 			TimeUnit.MILLISECONDS.sleep(50);
 		} catch (InterruptedException e) {
@@ -162,8 +166,15 @@ public class GameLoop {
 		}
 	}
 	
+	public void sleepTwo(){
+		try {
+			TimeUnit.MILLISECONDS.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	
 	
 	
 }
