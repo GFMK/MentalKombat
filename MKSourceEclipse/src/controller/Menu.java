@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -20,7 +21,8 @@ import javax.swing.JPanel;
 public class Menu extends JPanel{
 
 	static int charChosen=0;
-	static boolean extreme=false;
+	static boolean extreme=false; 
+	static boolean randAi=false;
 	
 	public Menu() {
 		
@@ -53,12 +55,14 @@ public class Menu extends JPanel{
 		JButton boutonH = new JButton("Healer");
 		JButton boutonT = new JButton("Tank");
 		JCheckBox extreme = new JCheckBox("AI extreme level");
+		JCheckBox randomAi = new JCheckBox("Random AI level");
 		
 		Box b1 = Box.createHorizontalBox();
 		Box b0 = Box.createHorizontalBox();
 		Box b2 = Box.createVerticalBox();
 
 		b0.add(extreme);
+		b0.add(randomAi);
 		b1.add(boutonD);
 		b1.add(boutonT);
 		b1.add(boutonH);
@@ -70,7 +74,7 @@ public class Menu extends JPanel{
 		boutonT.addActionListener(new boutonTListener());
 		boutonH.addActionListener(new boutonHListener());
 		extreme.addActionListener(new tickListener());
-		
+		randomAi.addActionListener(new tickListener2());
 	}
 	public boolean getExtreme(){
 		return extreme;
@@ -108,17 +112,27 @@ class boutonHListener implements ActionListener{
 	
 }
 class tickListener implements ActionListener{
-	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-			System.out.println("EXTREME MODE TOGGLED");
+
 			if(Menu.extreme){
 				Menu.extreme=false;
 			}
 			else{
 				Menu.extreme=true;
 			}
-		System.out.println("MODE : " +Menu.extreme);
+		System.out.println("AI MODE : " + Menu.extreme);
 	}
-	
+}
+class tickListener2 implements ActionListener{
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+			if(Menu.randAi){
+				Menu.randAi=false;
+			}
+			else{
+				Menu.randAi=true;
+			}
+		System.out.println("MODE RAND :" + Menu.randAi);
+	}
 }

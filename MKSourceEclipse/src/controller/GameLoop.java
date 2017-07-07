@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import model.Damager;
@@ -66,22 +67,35 @@ public class GameLoop {
 			menuDisplayed=true; 
 			
 			win.setVisible(true);
-			men.repaint();
+			men.repaint(); 
 		}
 		if(men.getCharChosen()!=0){ //once the played has done his choice on the menu
 			win.setContentPane(win.getWP());
 			//Until AI extreme coded
 				p2 = ai.characterChosen(); //P2 picks a random character
-				ai.setLevel(Menu.extreme); //set level of ai (extreme or not)
+				if(Menu.randAi){
+					Random rand = new Random(); //Make a random number to have a random AI
+					int r = rand.nextInt(2)+1;
+					if(r==1){
+						ai.setLevel(true);
+					}
+					else{
+						ai.setLevel(false);
+					}
+				}
+				else{
+					ai.setLevel(Menu.extreme); //set level of ai (extreme or not)
+				}
+				
 			//EndUntil
 				if(men.getCharChosen()==1){ //creates p1 depending on the button activated
-					p1 = new Damager(300,350);	
+					p1 = new Damager(315,350);	
 				}
 				if(men.getCharChosen()==2){
-					p1 = new Tank(300,350);	
+					p1 = new Tank(315,375);	
 				}
 				if(men.getCharChosen()==3){
-					p1 = new Healer(300,350);	
+					p1 = new Healer(225,330);	
 				}
 			continuer=false;//breaks the menu loop
 			menuDisplayed=false;//menu isn't diplayed
@@ -151,6 +165,7 @@ public class GameLoop {
 				hasDoneSpe=false;
 				p2hasDoneSpe = false;
 				Menu.extreme=false;
+				Menu.randAi=false;
 				continuer=false;
 			}
 			
@@ -158,8 +173,9 @@ public class GameLoop {
 	}
 	
 	public void sleepThree(){ //little wait, to prevent the CPU from exploding
+		
 		try {
-			TimeUnit.MILLISECONDS.sleep(50);
+			TimeUnit.MILLISECONDS.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,7 +184,7 @@ public class GameLoop {
 	
 	public void sleepTwo(){
 		try {
-			TimeUnit.MILLISECONDS.sleep(2000);
+			TimeUnit.MILLISECONDS.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

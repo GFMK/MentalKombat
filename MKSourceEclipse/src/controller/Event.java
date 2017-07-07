@@ -52,7 +52,7 @@ public class Event {
 		this.sleep3sec();//little sleep to see the animation
 		this.toFix(p1);
 		this.toFixAI(p2);//put the characters back to normal 
-		System.out.println("P1 : " + p1.getLifePoints() + " P2 : " + p2.getLifePoints());
+		//System.out.println("P1 : " + p1.getLifePoints() + " P2 : " + p2.getLifePoints());
 	}
 	
 	private void spePowAction() {
@@ -128,7 +128,7 @@ public class Event {
 			p1.setImage("images/hero/hero_attack.png");//correct img chosen
 		}
 		if(p1.getClass()==Healer.class){
-			p1.setImage("images/unicorn/unicorn_sp_r.png");
+			p1.setImage("images/unicorn/unicorn_attack_r.png");
 		}
 		if(p1.getClass()==Tank.class){
 			p1.setImage("images/ent/ent_run_r.png");
@@ -161,7 +161,7 @@ public class Event {
 	
 	public void sleep3sec(){
 		try {
-			TimeUnit.MILLISECONDS.sleep(500); //sleeps only 0.5 sec, I changed it afterwards, 3 sec is too long xD
+			TimeUnit.MILLISECONDS.sleep(750); //sleeps only 0.5 sec, I changed it afterwards, 3 sec is too long xD
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

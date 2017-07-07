@@ -24,7 +24,7 @@ public class DetectKey implements KeyListener { //classic keylistening class
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		
+		//key = arg0.getKeyCode();
 	}
 	public int getKey(){
 		return key;

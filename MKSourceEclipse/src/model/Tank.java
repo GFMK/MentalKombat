@@ -15,15 +15,15 @@ public class Tank extends Character {
 		
 	}
 	public int attack(Character ch){
-		System.out.println("Tank Attack");
+		//System.out.println("Tank Attack");
 		ch.setLifePoints(ch.getLifePoints()-1);	//substract 1 LifePoint to the opponent
 		return 1;
 	}
 	public void bloc(){
-		System.out.println("Tank Bloc");
+		//System.out.println("Tank Bloc");
 	}
 	public void speAttack(Character ch, int deg){ //the tank loses 1 LifePoint of substract 2 to the opponent
-		System.out.println("Tank speAttack");
+		//System.out.println("Tank speAttack");
 		ch.setLifePoints(ch.getLifePoints()-2);	
 		this.setLifePoints(getLifePoints()-1);
 		

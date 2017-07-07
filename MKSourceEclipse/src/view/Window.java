@@ -2,6 +2,7 @@ package view;
 
 
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import controller.DetectKey;
@@ -12,10 +13,11 @@ public class Window extends JFrame{ // creation of a new window
 
 	private DetectKey detKey = new DetectKey(); //creation of the keydetection
 	private WinPanel wp;
-		
+	ImageIcon icon = new ImageIcon("images/logo.png");
 	public Window() {
 		wp = new WinPanel(); //new panel
 	    this.setTitle("MentalKombat");
+	    this.setIconImage(icon.getImage());
 	    this.setSize(1024, 618); //the window size
 	    this.setResizable(false); //not resizable 
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

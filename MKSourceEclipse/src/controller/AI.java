@@ -25,11 +25,11 @@ public class AI {
 			CharAI.setImage("images/hero/hero_fix_r.png"); //assign the correct img
 		}
 		if(n==2){
-			CharAI = new Healer(550,350);
+			CharAI = new Healer(550,330);
 			CharAI.setImage("images/unicorn/unicorn_fix.png");
 		}
 		if(n==3){
-			CharAI = new Tank(550,350);
+			CharAI = new Tank(550,375);
 			CharAI.setImage("images/ent/ent_fix.png");
 		}
 		return CharAI;
@@ -230,7 +230,7 @@ public class AI {
 				cha.setImage("images/hero/hero_attack_r.png");
 			}
 			if(cha.getClass()==Healer.class){
-				cha.setImage("images/unicorn/unicorn_sp.png");
+				cha.setImage("images/unicorn/unicorn_attack.png");
 			}
 			if(cha.getClass()==Tank.class){
 				cha.setImage("images/ent/ent_run.png");
